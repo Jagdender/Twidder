@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Twidder.Pages.MediaPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:models="using:Twidder.Core.Models"
+    xmlns:convs="using:Twidder.Converters"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Twidder.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <convs:UriImageSourceConverter x:Key="UriImageSourceConverter"/>
+
+        <DataTemplate x:Key="MediaListTemplate" x:DataType="models:MediaItem">
+            <ItemContainer>
+                <Image Source="{x:Bind Url, Converter={StaticResource UriImageSourceConverter}}" Stretch="UniformToFill"/>
+            </ItemContainer>
+        </DataTemplate>
+    </Page.Resources>
+    
+    <Grid Padding="50">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Margin="0,0,0,50"
+            Grid.Row="0"              
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <TextBox
+                Width="400"
+                Text="{x:Bind Search.Text, Mode=TwoWay}" 
+                IsReadOnly="{x:Bind Search.IsReadonly, Mode=OneWay}" />
+            <Button Click="Submit">Submit</Button>
+        </StackPanel>
+        <ItemsView Grid.Row="1" ItemTemplate="{StaticResource MediaListTemplate}" ItemsSource="{x:Bind Items, Mode=OneWay}">
+            <ItemsView.Layout>
+                <LinedFlowLayout ItemsStretch="Fill" 
+                         LineHeight="160" 
+                         LineSpacing="5"
+                         MinItemSpacing="5"
+                />
+            </ItemsView.Layout>
+        </ItemsView>
+    </Grid>
+</Page>

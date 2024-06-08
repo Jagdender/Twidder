@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Twidder (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Twidder (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
